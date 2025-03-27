@@ -45,8 +45,8 @@
             display: flex;
             flex-wrap: nowrap;
             padding: 1vw;
-            max-width: 100%;
-            margin: 0 auto;
+            width: 100%; /* 確保容器佔據全寬 */
+            margin: 0;
             gap: 1vw;
             flex-grow: 1;
             align-items: stretch;
@@ -215,8 +215,10 @@
     </div>
 
     <script>
+        // 定義球員名單
         const players = ['禮', 'Mike', 'Dan', '東', '軍c', 'Xander', 'Alex', '光', 'Frankie', 'Nate', 'Vasco', '航', 'Sam', 'King'];
 
+        // 定義陣型
         const formations = {
             '321': {
                 positions: ['gk', 'lcb', 'cb', 'rcb', 'lm', 'rm', 'st'],
@@ -451,9 +453,9 @@
         }
 
         // 確保頁面加載完成後初始化
-        document.addEventListener('DOMContentLoaded', () => {
+        window.onload = () => {
             initFormationSelect();
-        });
+        };
     </script>
 </body>
 </html>
