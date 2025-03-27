@@ -296,15 +296,21 @@
             img.src = 'https://raw.githubusercontent.com/caneswst/Falcon352/refs/heads/main/football_pitch.jpg';
             img.onload = () => {
                 document.getElementById('pitch-error').style.display = 'none';
+                document.getElementById('pitch-container').style.backgroundImage = "url('https://raw.githubusercontent.com/caneswst/Falcon352/refs/heads/main/football_pitch.jpg')";
             };
             img.onerror = () => {
                 document.getElementById('pitch-error').style.display = 'block';
+                document.getElementById('pitch-container').style.backgroundImage = 'none';
             };
         }
 
         // 初始化陣型選擇
         function initFormationSelect() {
             const formationSelect = document.getElementById('formation-select');
+            if (!formationSelect) {
+                console.error("Formation select element not found!");
+                return;
+            }
             formationSelect.onchange = () => {
                 currentFormation = formationSelect.value;
                 updateFormation();
@@ -322,13 +328,21 @@
             const pitchContainer = document.getElementById('pitch-container');
             const positionDetails = document.getElementById('position-details');
 
+            if (!positionsContainer || !pitchContainer || !positionDetails) {
+                console.error("One or more required elements not found!");
+                return;
+            }
+
             // 更新左側選單
             positionsContainer.innerHTML = '';
             formation.positions.forEach(pos => {
-                positionsContainer.innerHTML += `
-                    <label>${formation.details[pos].name}:</label>
-                    <select id="${pos}"><option value="">選擇球員</option>${players.map(p => `<option value="${p}">${p}</option>`).join('')}</select>
-                `;
+                const label = document.createElement('label');
+                label.textContent = formation.details[pos].name + ':';
+                const select = document.createElement('select');
+                select.id = pos;
+                select.innerHTML = '<option value="">選擇球員</option>' + players.map(p => `<option value="${p}">${p}</option>`).join('');
+                positionsContainer.appendChild(label);
+                positionsContainer.appendChild(select);
             });
 
             // 更新戰術板
@@ -368,9 +382,11 @@
             // 為每個下拉選單添加事件並加載保存的選擇
             formation.positions.forEach(pos => {
                 const select = document.getElementById(pos);
-                select.onchange = updatePitchAndSubs;
-                if (selectedPlayersByFormation[currentFormation][pos]) {
-                    select.value = selectedPlayersByFormation[currentFormation][pos];
+                if (select) {
+                    select.onchange = updatePitchAndSubs;
+                    if (selectedPlayersByFormation[currentFormation][pos]) {
+                        select.value = selectedPlayersByFormation[currentFormation][pos];
+                    }
                 }
             });
 
@@ -386,16 +402,20 @@
             formation.positions.forEach(pos => {
                 const select = document.getElementById(pos);
                 const playerDiv = document.getElementById(pos + '-player');
-                const selectedPlayer = select.value;
-                playerDiv.textContent = selectedPlayer || pos.toUpperCase();
-                selectedPlayersByFormation[currentFormation][pos] = selectedPlayer;
-                if (selectedPlayer) selected.add(selectedPlayer);
+                if (select && playerDiv) {
+                    const selectedPlayer = select.value;
+                    playerDiv.textContent = selectedPlayer || pos.toUpperCase();
+                    selectedPlayersByFormation[currentFormation][pos] = selectedPlayer;
+                    if (selectedPlayer) selected.add(selectedPlayer);
+                }
             });
 
             // 更新後備名單
             const subsList = document.getElementById('subs-list');
-            const subs = players.filter(p => !selected.has(p));
-            subsList.innerHTML = subs.map(p => `<p>${p}</p>`).join('');
+            if (subsList) {
+                const subs = players.filter(p => !selected.has(p));
+                subsList.innerHTML = subs.map(p => `<p>${p}</p>`).join('');
+            }
 
             // 保存選擇到本地存儲
             localStorage.setItem('selectedPlayersByFormation', JSON.stringify(selectedPlayersByFormation));
@@ -408,7 +428,10 @@
             const savedPlayers = localStorage.getItem('selectedPlayersByFormation');
             if (savedFormation) {
                 currentFormation = savedFormation;
-                document.getElementById('formation-select').value = savedFormation;
+                const formationSelect = document.getElementById('formation-select');
+                if (formationSelect) {
+                    formationSelect.value = savedFormation;
+                }
             }
             if (savedPlayers) {
                 selectedPlayersByFormation = JSON.parse(savedPlayers);
@@ -427,7 +450,10 @@
             if (infoDiv) infoDiv.style.display = 'block';
         }
 
-        initFormationSelect();
+        // 確保頁面加載完成後初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            initFormationSelect();
+        });
     </script>
 </body>
 </html>
