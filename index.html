@@ -76,15 +76,15 @@
         }
         .player {
             position: absolute;
-            width: clamp(25px, 3.5vw, 40px);
-            height: clamp(25px, 3.5vw, 40px);
+            width: clamp(37.5px, 5.25vw, 60px); /* 原值放大 50% */
+            height: clamp(37.5px, 5.25vw, 60px); /* 原值放大 50% */
             background: #4682b4;
             border-radius: 50%;
             color: #fff;
             text-align: center;
-            line-height: clamp(25px, 3.5vw, 40px);
+            line-height: clamp(37.5px, 5.25vw, 60px); /* 原值放大 50% */
             cursor: pointer;
-            font-size: clamp(8px, 1.5vw, 14px);
+            font-size: clamp(12px, 2.25vw, 21px); /* 原值放大 50% */
             transition: transform 0.3s, box-shadow 0.3s;
             transform: translate(-50%, -50%);
         }
@@ -177,10 +177,10 @@
             #subs-container { order: 3; }
             #right-panel { order: 1; }
             .player {
-                width: 6vw;
-                height: 6vw;
-                line-height: 6vw;
-                font-size: 2vw;
+                width: 9vw; /* 原值放大 50% */
+                height: 9vw; /* 原值放大 50% */
+                line-height: 9vw; /* 原值放大 50% */
+                font-size: 3vw; /* 原值放大 50% */
             }
         }
     </style>
@@ -224,13 +224,13 @@
             '321': {
                 positions: ['gk', 'lcb', 'cb', 'rcb', 'lm', 'rm', 'st'],
                 layout: {
-                    'gk': { left: '50%', top: '95%' },
-                    'lcb': { left: '20%', top: '60%' },
+                    'gk': { left: '50%', top: '90%' },
+                    'lcb': { left: '30%', top: '70%' },
                     'cb': { left: '50%', top: '70%' },
-                    'rcb': { left: '80%', top: '60%' },
-                    'lm': { left: '35%', top: '35%' }, // 左中場向前推進（從 45% 改為 35%）
-                    'rm': { left: '65%', top: '35%' }, // 右中場向前推進（從 45% 改為 35%）
-                    'st': { left: '50%', top: '15%' }  // 前鋒更靠近對方禁區（從 20% 改為 15%）
+                    'rcb': { left: '70%', top: '70%' },
+                    'lm': { left: '35%', top: '35%' },
+                    'rm': { left: '65%', top: '35%' },
+                    'st': { left: '50%', top: '15%' }
                 },
                 details: {
                     'gk': { 
@@ -294,13 +294,13 @@
             '312': {
                 positions: ['gk', 'lcb', 'cb', 'rcb', 'cm', 'lst', 'rst'],
                 layout: {
-                    'gk': { left: '50%', top: '95%' },
-                    'lcb': { left: '20%', top: '60%' },
+                    'gk': { left: '50%', top: '90%' },
+                    'lcb': { left: '30%', top: '70%' },
                     'cb': { left: '50%', top: '70%' },
-                    'rcb': { left: '80%', top: '60%' },
+                    'rcb': { left: '70%', top: '70%' },
                     'cm': { left: '50%', top: '50%' },
-                    'lst': { left: '40%', top: '25%' }, // 左前鋒向前推進（從 25% 改為 15%）
-                    'rst': { left: '60%', top: '25%' }  // 右前鋒向前推進（從 25% 改為 15%）
+                    'lst': { left: '40%', top: '15%' },
+                    'rst': { left: '60%', top: '15%' }
                 },
                 details: {
                     'gk': { 
@@ -364,13 +364,13 @@
             '231': {
                 positions: ['gk', 'lcb', 'rcb', 'lm', 'cm', 'rm', 'st'],
                 layout: {
-                    'gk': { left: '50%', top: '95%' },
+                    'gk': { left: '50%', top: '90%' },
                     'lcb': { left: '35%', top: '70%' },
                     'rcb': { left: '65%', top: '70%' },
-                    'lm': { left: '25%', top: '35%' }, // 左中場向前推進（從 45% 改為 35%）
-                    'cm': { left: '50%', top: '50%' }, // 中場稍向前（從 45% 改為 40%）
-                    'rm': { left: '75%', top: '35%' }, // 右中場向前推進（從 45% 改為 35%）
-                    'st': { left: '50%', top: '15%' }  // 前鋒更靠近對方禁區（從 20% 改為 15%）
+                    'lm': { left: '25%', top: '35%' },
+                    'cm': { left: '50%', top: '40%' },
+                    'rm': { left: '75%', top: '35%' },
+                    'st': { left: '50%', top: '15%' }
                 },
                 details: {
                     'gk': { 
